@@ -6,9 +6,11 @@ local fore_color_std=0xFFFFFF
 local hook_as_permanent=true --only for req_handler, ignore
 ----
 
+local llm = require("llm")
+
 local component=require("component")
 local term=require("term")
-local term_read=require("term_mod") --modified term.read function preventing line shifting
+local term_read=llm:requireLocal("term_mod") --modified term.read function preventing line shifting
 local text=require("text")
 local unicode=require("unicode")
 local colors=require("colors")
@@ -308,7 +310,7 @@ function g.opt_layers() --code deprecated, low priority
 end
 
 function g.initShapes(import,override) --function to import shape files located in /lib
-    local i=require(import)
+    local i=llm:requireLocal(import)
     i.init(g)
     for a,b in pairs(i) do
         if g[a]~=nil and override~=true then
